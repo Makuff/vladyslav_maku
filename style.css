@@ -414,9 +414,13 @@ nav.nav {
 /* ============================================
    PROJECT LIST
    ============================================ */
+
+.overflow-break-all {
+    overflow-wrap: anywhere;
+}
+
 .space-list {
     max-height: 560px;
-    overflow-y: auto;
     scrollbar-color: var(--line) transparent;
 }
 
