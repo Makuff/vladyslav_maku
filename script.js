@@ -22,152 +22,71 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Custom Cursor
-    const cursor = document.querySelector('.custom-cursor');
-    const hoverables = document.querySelectorAll('a, .tilt-wrap, .chip, .studio, .theme-toggle');
-    
-    if (window.matchMedia('(pointer: fine)').matches) {
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-        
-        hoverables.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('hovered');
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hovered');
-            });
-        });
-    } else {
-        cursor.style.display = 'none';
-    }
-    
     // 3D Tilt Effect
     const supportsHover = window.matchMedia('(hover: hover)').matches;
-    if (!supportsHover) return;
+    if (supportsHover) generateTiltCards();
+
+    function generateTiltCards () {
+        const MAX_TILT = 8;
+        const SHADOW = 28;
     
-    const MAX_TILT = 8;
-    const SHADOW = 28;
-    
-    document.querySelectorAll('.tilt-wrap').forEach((wrap) => {
-        const card = wrap.querySelector('.tilt-card');
-        const glare = wrap.querySelector('.tilt-glare');
-        const surface = wrap.querySelector('.tilt-surface');
-        
-        function onMove(e) {
-            const r = wrap.getBoundingClientRect();
-            const x = e.clientX - r.left;
-            const y = e.clientY - r.top;
-            const nx = (x / r.width) - 0.5;
-            const ny = (y / r.height) - 0.5;
+        document.querySelectorAll('.tilt-wrap').forEach((wrap) => {
+            const card = wrap.querySelector('.tilt-card');
+            const glare = wrap.querySelector('.tilt-glare');
+            const surface = wrap.querySelector('.tilt-surface');
             
-            const rx = (ny * MAX_TILT);
-            const ry = (-nx * MAX_TILT);
-            
-            card.style.transform = `translateZ(20px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-            card.style.boxShadow = `${nx * 10}px ${10 + ny * 10}px ${SHADOW}px rgba(0,0,0,.35)`;
-            
-            if (glare) {
-                const gy = (ny * 250);
-                const gx = (nx * 20);
-                glare.style.opacity = 0.9;
-                glare.style.transform = `translate3d(${gx}%, ${gy}%, 60px)`;
+            function onMove(e) {
+                const r = wrap.getBoundingClientRect();
+                const x = e.clientX - r.left;
+                const y = e.clientY - r.top;
+                const nx = (x / r.width) - 0.5;
+                const ny = (y / r.height) - 0.5;
+                
+                const rx = (ny * MAX_TILT);
+                const ry = (-nx * MAX_TILT);
+                
+                card.style.transform = `translateZ(20px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+                card.style.boxShadow = `${nx * 10}px ${10 + ny * 10}px ${SHADOW}px rgba(0,0,0,.35)`;
+                
+                if (glare) {
+                    const gy = (ny * 250);
+                    const gx = (nx * 20);
+                    glare.style.opacity = 0.9;
+                    glare.style.transform = `translate3d(${gx}%, ${gy}%, 60px)`;
+                }
+                
+                if (surface) {
+                    surface.style.transform = `translateZ(0) translate(${-nx * 4}px, ${-ny * 4}px)`;
+                }
             }
             
-            if (surface) {
-                surface.style.transform = `translateZ(0) translate(${-nx * 4}px, ${-ny * 4}px)`;
+            function onEnter() {
+                wrap.classList.add('hovering');
+                card.style.transition = 'transform .12s ease, box-shadow .12s ease';
+                if (glare) glare.style.transition = 'opacity .15s ease, transform .12s ease';
+                if (glare) glare.style.opacity = 0.9;
             }
-        }
-        
-        function onEnter() {
-            wrap.classList.add('hovering');
-            card.style.transition = 'transform .12s ease, box-shadow .12s ease';
-            if (glare) glare.style.transition = 'opacity .15s ease, transform .12s ease';
-            if (glare) glare.style.opacity = 0.9;
-        }
-        
-        function onLeave() {
-            wrap.classList.remove('hovering');
-            card.style.transition = 'transform .18s ease, box-shadow .2s ease';
-            card.style.transform = 'rotateX(0) rotateY(0)';
-            card.style.boxShadow = '0 10px 28px rgba(0,0,0,.35)';
-            if (glare) {
-                glare.style.transition = 'opacity .18s ease, transform .18s ease';
-                glare.style.opacity = 0;
-                glare.style.transform = 'translate3d(0,0,60px)';
+            
+            function onLeave() {
+                wrap.classList.remove('hovering');
+                card.style.transition = 'transform .18s ease, box-shadow .2s ease';
+                card.style.transform = 'rotateX(0) rotateY(0)';
+                card.style.boxShadow = '0 10px 28px rgba(0,0,0,.35)';
+                if (glare) {
+                    glare.style.transition = 'opacity .18s ease, transform .18s ease';
+                    glare.style.opacity = 0;
+                    glare.style.transform = 'translate3d(0,0,60px)';
+                }
+                if (surface) {
+                    surface.style.transform = 'translateZ(0)';
+                }
             }
-            if (surface) {
-                surface.style.transform = 'translateZ(0)';
-            }
-        }
-        
-        wrap.addEventListener('mousemove', onMove);
-        wrap.addEventListener('mouseenter', onEnter);
-        wrap.addEventListener('mouseleave', onLeave);
-    });
-    
-    // Parallax motion (фон)
-    (function () {
-        const wrap = document.getElementById('parallax-bg');
-        if (!wrap) return;
-        const img = wrap.querySelector('img');
-        if (!img) return;
-        
-        const supportsHover = matchMedia('(hover:hover)').matches;
-        const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (!supportsHover || reduced) return;
-        
-        const RANGE_X = Number(wrap.dataset.rangeX || 10);
-        const RANGE_Y = Number(wrap.dataset.rangeY || 10);
-        
-        let tx = 0, ty = 0, x = 0, y = 0, vx = 0, vy = 0;
-        const K = 18, D = 5.5;
-        let rafId = null, last = 0;
-        
-        function onMove(e) {
-            const w = window.innerWidth, h = window.innerHeight;
-            const nx = (e.clientX / w) - 0.5;
-            const ny = (e.clientY / h) - 0.5;
-            tx = nx * RANGE_X;
-            ty = ny * RANGE_Y;
-            if (!rafId) {
-                last = performance.now();
-                rafId = requestAnimationFrame(loop);
-            }
-        }
-        
-        function onLeave() {
-            tx = 0;
-            ty = 0;
-            if (!rafId) {
-                last = performance.now();
-                rafId = requestAnimationFrame(loop);
-            }
-        }
-        
-        function loop(now) {
-            const dt = Math.min((now - last) / 1000, 0.032);
-            last = now;
-            const ax = -K * (x - tx) - D * vx;
-            const ay = -K * (y - ty) - D * vy;
-            vx += ax * dt;
-            vy += ay * dt;
-            x += vx * dt;
-            y += vy * dt;
-            img.style.transform = `translate3d(${x}px, ${y}px, 0) scale(1.1)`;
-            if (Math.abs(x - tx) > .01 || Math.abs(y - ty) > .01 || Math.abs(vx) > .01 || Math.abs(vy) > .01) {
-                rafId = requestAnimationFrame(loop);
-            } else {
-                rafId = null;
-            }
-        }
-        
-        window.addEventListener('pointermove', onMove);
-        window.addEventListener('pointerleave', onLeave);
-        window.addEventListener('blur', onLeave);
-    })();
+            
+            wrap.addEventListener('mousemove', onMove);
+            wrap.addEventListener('mouseenter', onEnter);
+            wrap.addEventListener('mouseleave', onLeave);
+        });
+    }
     
     // Generate project items (for demo purposes)
     function generateProjects() {
