@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vladyslav Re/MAKU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dark-theme">
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <!-- Parallax Background -->
+    <div id="parallax-bg" data-range-x="40" data-range-y="40">
+        <img src="images/Background3.png" alt="Background">
+    </div>
+
+
+    <!-- Header/Hero Section -->
+    <header class="container">
+        <section class="container hero-section">
+            <!-- Hero Content -->
+            <div class="hero p-6 md:p-8 mb-6">
+                <div class="hero__bg" aria-hidden="true"></div>
+                <div class="hero__overlay" aria-hidden="true"></div>
+                <div class="hero__content">
+                    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Vladyslav Re/MAKU</h1>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="chip">Character Art</span>
+                        <span class="chip">High-poly</span>
+                        <span class="chip">Low-poly</span>
+                        <span class="chip">Texturing</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Card - под героем, растянутая -->
+            <div class="card p-6 md:p-7 mb-6">
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Основная информация -->
+                    <div class="lg:col-span-2">
+                        <h2 class="font-semibold">Info</h2>
+                        <p class="muted mt-2">
+                            21-year-old Character Artist with 2+ years of industry experience on AAA projects, covering the full character production pipeline from blockout to texturing.
+                        </p>
+                    </div>
+                    
+                    <!-- Детали -->
+                    <div class="lg:col-span-1">
+                        <div class="mt-4 lg:mt-0 grid grid-cols-1 gap-3">
+                            <div class="field">
+                                <div class="text-sm muted">Location & Timezone</div>
+                                <div class="mt-1">Batumi, Georgia • UTC+4</div>
+                            </div>
+                            <div class="field">
+                                <div class="text-sm muted">Contact</div>
+                                <a class="underline mt-1 inline-block" href="mailto:reznychenko.re@gmail.com">reznychenko.re@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Stack Card -->
+            <div class="card p-6 md:p-7">
+                <h2 class="font-semibold">Core Stack</h2>
+                <p class="muted mt-1 mb-4">Main software and tools I work with</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- ZBrush -->
+                    <div class="stack-item p-5 text-center rounded-xl border-2 border-transparent hover:border-brand transition-all duration-300 relative overflow-hidden">
+                        <div class="text-xl font-bold tracking-tight">ZBrush</div>
+                        <div class="stack-glow"></div>
+                    </div>
+                    
+                    <!-- Blender/Maya -->
+                    <div class="stack-item p-5 text-center rounded-xl border-2 border-transparent hover:border-brand transition-all duration-300 relative overflow-hidden">
+                        <div class="text-xl font-bold tracking-tight">Blender / Maya</div>
+                        <div class="stack-glow"></div>
+                    </div>
+                    
+                    <!-- Substance Painter -->
+                    <div class="stack-item p-5 text-center rounded-xl border-2 border-transparent hover:border-brand transition-all duration-300 relative overflow-hidden">
+                        <div class="text-xl font-bold tracking-tight">Substance Painter</div>
+                        <div class="stack-glow"></div>
+                    </div>
+                    
+                    <!-- Marmoset -->
+                    <div class="stack-item p-5 text-center rounded-xl border-2 border-transparent hover:border-brand transition-all duration-300 relative overflow-hidden">
+                        <div class="text-xl font-bold tracking-tight">Marmoset</div>
+                        <div class="stack-glow"></div>
+                    </div>
+                    
+                    <!-- Unreal Engine -->
+                    <div class="stack-item p-5 text-center rounded-xl border-2 border-transparent hover:border-brand transition-all duration-300 relative overflow-hidden">
+                        <div class="text-xl font-bold tracking-tight">Unreal Engine</div>
+                        <div class="stack-glow"></div>
+                    </div>
+
+                                        <!-- Unreal Engine -->
+                    <div class="stack-item p-5 text-center rounded-xl border-2 border-transparent hover:border-brand transition-all duration-300 relative overflow-hidden">
+                        <div class="text-xl font-bold tracking-tight">RizomUv</div>
+                        <div class="stack-glow"></div>
+                    </div>
+
+                                        <!-- Unreal Engine -->
+                    <div class="stack-item p-5 text-center rounded-xl border-2 border-transparent hover:border-brand transition-all duration-300 relative overflow-hidden">
+                        <div class="text-xl font-bold tracking-tight">Photoshop</div>
+                        <div class="stack-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <!-- Main Content -->
+    <!-- Main Content - Production Experience -->
+    <section class="container">
+        <div class="container">
+            <div class="card p-6 md:p-7">
+                <h2 class="font-semibold">Production Experience</h2>
+                <div class="space-y-3 snap-y snap-mandatory space-list">
+                    <!-- Project items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Studios Section -->
+    <!-- Studios Section -->
+    <section class="container">
+        <div class="container">
+            <div class="card p-6 md:p-7 studios">
+                <h2 class="font-semibold">Studios</h2>
+                <p class="muted mt-1">Some of contract & collaboration history with dates.</p>
+                <div class="grid gap-4 sm:grid-cols-3 lg:grid-cols-2 mt-4">
+                    <!-- Studio items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center text-sm pt-6">
+            <div class="mb-2">Based in Batumi, Georgia</div>
+            <div class="mb-2"><a class="underline" href="mailto:reznychenko.re@gmail.com">reznychenko.re@gmail.com</a></div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

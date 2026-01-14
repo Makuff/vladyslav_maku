@@ -1,0 +1,930 @@
+/* ============================================
+   ROOT VARIABLES - THEME SYSTEM
+   ============================================ */
+:root {
+    /* Dark theme (default) */
+    --bg: #0b0c10;
+    --ink: #fff;
+    --muted: rgba(255, 255, 255, 0.78);
+    --line: rgba(255, 255, 255, 0.16);
+    --brand: #4f46e5;
+    --card-bg: rgba(255, 255, 255, 0.06);
+    --chip-bg: rgba(255, 255, 255, 0.05);
+    --nav-bg: rgba(0, 0, 0, 0.35);
+    --shadow-color: rgba(0, 0, 0, 0.25);
+    --outline-ring: rgba(172, 176, 255, 0.95);
+    
+    /* Spacing */
+    --space-ys: 2.25rem;
+    --space-ym: 3.5rem;
+    --space-yl: 5rem;
+    --card-hover-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+    
+    /* Hero shades */
+    --heroShadeL: 0.85;
+    --heroShadeM: 0.55;
+    --heroShadeR: 0.10;
+    
+    /* Studios animation */
+    --studio-slide: 55%;
+    --studio-scale: 1.02;
+    --studio-img-w: 46%;
+    --studio-img-maxh: 120px;
+    --studio-dur: 0.35s;
+    --studio-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Light theme (birch white) */
+.light-theme {
+    --bg: #ebf4f5; /* Birch white background */
+    --ink: #1a202c; /* Dark text */
+    --muted: rgba(26, 32, 44, 0.78);
+    --line: rgba(26, 32, 44, 0.16);
+    --brand: #4f46e5;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --chip-bg: rgba(26, 32, 44, 0.05);
+    --nav-bg: rgba(245, 242, 235, 0.9);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --outline-ring: rgba(99, 102, 241, 0.7);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Container */
+.container {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+section.container, header.container, footer.container, main.container {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+@media (min-width: 1024px) {
+    section.container, header.container, footer.container, main.container {
+        margin-top: 4.25rem;
+        margin-bottom: 4.25rem;
+    }
+}
+
+/* Typography */
+h1, h2, h3 {
+    letter-spacing: 0.2px;
+}
+
+h1 {
+    font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+}
+
+h2 {
+    font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+}
+
+.muted {
+    opacity: 0.85;
+}
+
+/* ============================================
+   THEME TOGGLE
+   ============================================ */
+/* ============================================
+   THEME TOGGLE
+   ============================================ */
+.theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    border-color: var(--brand);
+}
+
+.theme-toggle i {
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-size: 1.2rem;
+    color: var(--ink);
+}
+
+.theme-toggle .fa-moon {
+    opacity: 1;
+}
+
+.theme-toggle .fa-sun {
+    opacity: 0;
+    transform: rotate(90deg);
+}
+
+.light-theme .theme-toggle .fa-moon {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+
+.light-theme .theme-toggle .fa-sun {
+    opacity: 1;
+    transform: rotate(0);
+}
+
+/* ============================================
+   CUSTOM CURSOR
+   ============================================ */
+
+
+
+
+
+/* ============================================
+   BACKGROUND EFFECTS
+   ============================================ */
+/* Parallax background */
+#parallax-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+#parallax-bg>img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate3d(0, 0, 0) scale(1.1);
+    will-change: transform;
+    transition: transform 0.2s ease;
+    filter: saturate(1.02) contrast(1.02);
+}
+
+/* Background gradients - dark theme only */
+body.dark-theme::before {
+    content: "";
+    position: fixed;
+    inset: -20% -10% auto -10%;
+    height: 40vh;
+    background: radial-gradient(800px 200px at 20% 0%, rgba(99, 102, 241, 0.18), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.dark-theme::after {
+    content: "";
+    position: fixed;
+    inset: auto -10% -20% -10%;
+    height: 30vh;
+    background: radial-gradient(700px 220px at 80% 100%, rgba(34, 197, 94, 0.12), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Light theme background - subtle birch pattern */
+body.light-theme::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.03;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.1) 2px, transparent 2px),
+        radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.1) 2px, transparent 2px);
+    background-size: 50px 50px;
+}
+
+/* Background grid */
+.background-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, var(--line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    opacity: 0.5;
+    animation: pan-bg 120s linear infinite;
+}
+
+@keyframes pan-bg {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 400px 400px;
+    }
+}
+
+/* ============================================
+   COMPONENTS
+   ============================================ */
+/* Card */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 28px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 16px 36px var(--shadow-color);
+}
+
+.card-base {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Chip */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--chip-bg);
+    font-size: 0.9rem;
+    opacity: 0.95;
+    transition: all 0.2s ease;
+}
+
+.chip:hover {
+    opacity: 1;
+    border-color: var(--brand);
+}
+
+/* Tag */
+.tag {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.28rem 0.55rem;
+    font-size: 0.82rem;
+    opacity: 0.9;
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    opacity: 1;
+    border-color: var(--brand);
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+nav.nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    transition: all 0.3s ease;
+}
+
+.nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0.85rem 1.25rem;
+}
+
+.nav a {
+    opacity: 0.9;
+    padding: 0.45rem 0.65rem;
+    border-bottom: 1px solid transparent;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+}
+
+.nav a:hover {
+    opacity: 1;
+    border-color: var(--brand);
+}
+
+.nav a.active {
+    opacity: 1;
+    border-color: var(--brand);
+    font-weight: 600;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 28px var(--shadow-color);
+}
+
+.hero__bg {
+    position: absolute;
+    inset: 0;
+    background-image: url("images/Btn5_back.webp");
+    background-size: cover;
+    background-position: center 35%;
+    opacity: 0;
+    transform: scale(1.08) translateY(8px);
+    animation: heroIn 0.9s cubic-bezier(0.2, 0.75, 0.2, 1) 0.1s forwards;
+    will-change: transform, opacity;
+}
+
+.hero__overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+            rgba(0, 0, 0, var(--heroShadeL)) 0%,
+            rgba(0, 0, 0, var(--heroShadeM)) 35%,
+            rgba(0, 0, 0, 0.28) 55%,
+            rgba(0, 0, 0, 0.12) 72%,
+            rgba(0, 0, 0, 0) 100%);
+    opacity: 1;
+}
+
+.light-theme .hero__overlay {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, var(--heroShadeL)) 0%,
+            rgba(255, 255, 255, var(--heroShadeM)) 35%,
+            rgba(255, 255, 255, 0.28) 55%,
+            rgba(255, 255, 255, 0.12) 72%,
+            rgba(255, 255, 255, 0) 100%);
+}
+
+.hero__content {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes heroIn {
+    0% {
+        opacity: 0;
+        transform: scale(1.08) translateY(8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@media (max-width: 640px) {
+    :root {
+        --heroShadeL: 0.92;
+        --heroShadeM: 0.65;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero__bg {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ============================================
+   PROJECT LIST
+   ============================================ */
+.space-list {
+    max-height: 560px;
+    overflow-y: auto;
+    scrollbar-color: var(--line) transparent;
+}
+
+.space-list .item {
+    border: 1px solid transparent;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.space-list .item:hover {
+    border-color: var(--brand);
+    background: var(--chip-bg);
+}
+
+/* Project button */
+a.proj {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--ink);
+    display: block;
+}
+
+a.proj .proj-date {
+    margin-left: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    opacity: 0.85;
+    white-space: nowrap;
+}
+
+a.proj::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    pointer-events: none;
+    opacity: 0;
+    box-shadow: inset 0 0 0 1px rgba(164, 172, 255, 0.4),
+        0 0 12px rgba(164, 172, 255, 0.12);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+a.proj::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 14px;
+    background: linear-gradient(120deg,
+            rgba(99, 102, 241, 0.22),
+            rgba(34, 197, 94, 0.18),
+            rgba(6, 182, 212, 0.2),
+            rgba(99, 102, 241, 0.22));
+    background-size: 220% 220%;
+    opacity: 0;
+    filter: saturate(1.1) contrast(1.05);
+    transition: opacity 0.18s ease;
+}
+
+a.proj:hover {
+    transform: translateY(-1px);
+    background: var(--chip-bg);
+}
+
+a.proj:hover::before {
+    opacity: 1;
+}
+
+a.proj:hover::after {
+    opacity: 0.14;
+    animation: sweep 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes sweep {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/* ============================================
+   STUDIOS SECTION
+   ============================================ */
+.studios .studio {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: var(--card-bg);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    will-change: transform, box-shadow;
+    text-decoration: none;
+    color: var(--ink);
+}
+
+.studios .studio>* {
+    position: relative;
+    z-index: 1;
+}
+
+.studios .studio:hover {
+    transform: scale(var(--studio-scale));
+    border-color: var(--brand);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.studios .studio::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    box-shadow: inset 0 0 0 1px rgba(164, 172, 255, 0.4),
+        inset 0 0 10px rgba(164, 172, 255, 0.18),
+        0 0 16px rgba(164, 172, 255, 0.1);
+    transition: opacity 0.18s ease;
+}
+
+.studios .studio:hover::before {
+    opacity: 1;
+}
+
+.studios .studio::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    background: linear-gradient(120deg,
+            rgba(99, 102, 241, 0.25),
+            rgba(6, 182, 212, 0.18),
+            rgba(34, 197, 94, 0.2),
+            rgba(99, 102, 241, 0.25));
+    background-size: 220% 220%;
+    transition: opacity 0.18s ease;
+}
+
+.studios .studio:hover::after {
+    opacity: 0.13;
+    animation: sweep 1.6s ease-in-out infinite alternate;
+}
+
+.studio-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: calc(-1 * var(--studio-slide));
+    width: var(--studio-img-w);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    pointer-events: none;
+    z-index: 0;
+    transform: translateX(var(--studio-slide)) scale(1) rotate(0.001deg);
+    opacity: 0;
+    transition: transform var(--studio-dur) var(--studio-ease), opacity 0.25s ease;
+    will-change: transform, opacity;
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.45));
+}
+
+.studios .studio:hover .studio-img {
+    transform: translateX(0) scale(var(--studio-scale));
+    opacity: 1;
+}
+
+.studio-img img {
+    max-height: var(--studio-img-maxh);
+    object-fit: contain;
+    opacity: 0.95;
+}
+
+@media (max-width: 640px) {
+    .studio-img {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .studios .studio,
+    .studios .studio::after,
+    .studio-img {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+}
+
+/* ============================================
+   TILT CARDS (Commercial Works)
+   ============================================ */
+.tilt-wrap {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    perspective: 1200px;
+    text-decoration: none;
+}
+
+.tilt-card {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px var(--shadow-color);
+    border: 1px solid var(--line);
+    aspect-ratio: 63 / 88;
+}
+
+.tilt-surface {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    transform: translateZ(0);
+}
+
+.tilt-img {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.tilt-img>img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.02) saturate(1.02);
+    transform: translateZ(10px);
+    transition: transform 0.28s ease;
+}
+
+.tilt-wrap.hovering .tilt-img>img {
+    transform: translateZ(10px) scale(1.15);
+}
+
+.tilt-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 14px 16px 16px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+    transform: translateZ(20px);
+}
+
+.light-theme .tilt-content {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15));
+}
+
+.tilt-title {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: white;
+}
+
+.light-theme .tilt-title {
+    color: var(--ink);
+}
+
+.tilt-glare {
+    position: absolute;
+    inset: -30% -10%;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate3d(0, 0, 60px) rotate(0.001deg);
+    mix-blend-mode: screen;
+    transition: opacity 0.15s ease;
+}
+
+.tilt-glare>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+}
+
+/* Hover outline */
+.tilt-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 2px solid var(--outline-ring);
+    box-shadow: 0 0 6px rgba(172, 176, 255, 0.45);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+}
+
+.tilt-wrap.hovering .tilt-card::after {
+    opacity: 1;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+    padding-bottom: 2.25rem;
+    opacity: 0.7;
+    border-top: 1px solid var(--line);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .lg\:col-span-2, .lg\:col-span-1 {
+        grid-column: span 1;
+    }
+    
+    .hero-section {
+        margin-top: var(--space-ys);
+    }
+    
+    .theme-toggle {
+        top: 0.8rem;
+        right: 0.8rem;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 640px) {
+    .nav-inner {
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav a {
+        padding: 0.35rem 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    section.container, header.container, footer.container, main.container {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .theme-toggle {
+        top: 0.6rem;
+        right: 0.6rem;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #parallax-bg>img {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ============================================
+   CORE STACK STYLES - HYPED UI
+   ============================================ */
+.stack-item {
+    background: var(--chip-bg);
+    border: 2px solid var(--line);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.stack-item:hover {
+    border-color: var(--brand);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 
+        0 10px 30px rgba(79, 70, 229, 0.3),
+        0 0 0 1px rgba(79, 70, 229, 0.1),
+        inset 0 0 20px rgba(79, 70, 229, 0.05);
+}
+
+.stack-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, 
+        rgba(79, 70, 229, 0.1) 0%, 
+        transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.stack-item:hover .stack-glow {
+    opacity: 1;
+}
+
+.stack-item > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Neon text effect on hover */
+.stack-item:hover .text-xl {
+    text-shadow: 0 0 10px rgba(79, 70, 229, 0.7);
+}
+
+/* Active state for dark theme */
+.dark-theme .stack-item:hover {
+    background: rgba(79, 70, 229, 0.08);
+}
+
+/* Active state for light theme */
+.light-theme .stack-item:hover {
+    background: rgba(79, 70, 229, 0.05);
+}
+
+/* Special border effects */
+.stack-item::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 14px;
+    padding: 2px;
+    background: linear-gradient(45deg, 
+        transparent, 
+        rgba(79, 70, 229, 0.3), 
+        transparent);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.stack-item:hover::before {
+    opacity: 1;
+    animation: borderRotate 3s linear infinite;
+}
+
+@keyframes borderRotate {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .stack-item {
+        padding: 1rem;
+    }
+    
+    .stack-item:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+    
+}
+
+@media (max-width: 640px) {
+    .stack-item {
+        padding: 0.75rem;
+    }
+}
+
