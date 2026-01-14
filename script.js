@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Generate project items (for demo purposes)
     function generateProjects() {
         const projects = [
-            { title: "Fortnite", date: "2025", icon: "images/fort_icon.jpg", skills: "Blockout/High-poly/Retopology/UVs/Baking/Texturing", link: "https://www.fortnite.com/" }
+            { title: "Fortnite", date: "2024-2026", icon: "images/fort_icon.jpg", skills: "Blockout/High-poly/Retopology/UVs/Baking/Texturing", link: "https://www.fortnite.com/" }
         ];
         
         const projectContainer = document.querySelector('.space-list');
